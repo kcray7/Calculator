@@ -15,9 +15,9 @@ public class Calculator extends Activity implements OnClickListener{
 	private EditText et_show;
 	private StringBuffer str_show = new StringBuffer("");
 	private double num1,num2;
-	private boolean flag = true;
 	private String str_oper = null;
 	private String str_result = null;
+	private boolean flag_dot = true;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,10 +73,10 @@ public class Calculator extends Activity implements OnClickListener{
 		case R.id.btn_dot:
 			if(str_show.toString() == ""){
 				break;
-			}else if(flag){
+			}else if(flag_dot){
 				str_show.append(".");
 				et_show.setText(str_show.toString());
-				flag=false;
+				flag_dot=false;
 			}
 			break;
 		case R.id.btn_clear:
@@ -91,64 +91,32 @@ public class Calculator extends Activity implements OnClickListener{
 			num1 = 0;
 			break;
 		case R.id.btn_add:
-			if(str_oper != null){
+			if(str_oper != null && !(str_show.toString() == "")){
 				calculate();
 			}
-			if(!(str_show.toString() == "")){
-				num1 = Double.parseDouble(str_show.toString());
-				str_show = new StringBuffer("");
-			}else if(str_result != null){
-				num1 = Double.parseDouble(str_result);
-				str_result = null;
-			}
-			et_show.setText(String.valueOf(num1));
+			getNum1();
 			str_oper = "+";
-			flag = true;
 			break;
 		case R.id.btn_sub:
-			if(str_oper != null){
+			if(str_oper != null && !(str_show.toString() == "")){
 				calculate();
 			}
-			if(!(str_show.toString() == "")){
-				num1 = Double.parseDouble(str_show.toString());
-				str_show = new StringBuffer("");
-			}else if(str_result != null){
-				num1 = Double.parseDouble(str_result);
-				str_result = null;
-			}
-			et_show.setText(String.valueOf(num1));
+			getNum1();
 			str_oper = "-";
-			flag = true;
 			break;
 		case R.id.btn_mul:
-			if(str_oper != null){
+			if(str_oper != null && !(str_show.toString() == "")){
 				calculate();
 			}
-			if(!(str_show.toString() == "")){
-				num1 = Double.parseDouble(str_show.toString());
-				str_show = new StringBuffer("");
-			}else if(str_result != null){
-				num1 = Double.parseDouble(str_result);
-				str_result = null;
-			}
-			et_show.setText(String.valueOf(num1));
+			getNum1();
 			str_oper = "*";
-			flag = true;
 			break;
 		case R.id.btn_div:
-			if(str_oper != null){
+			if(str_oper != null && !(str_show.toString() == "")){
 				calculate();
 			}
-			if(!(str_show.toString() == "")){
-				num1 = Double.parseDouble(str_show.toString());
-				str_show = new StringBuffer("");
-			}else if(str_result != null){
-				num1 = Double.parseDouble(str_result);
-				str_result = null;
-			}
-			et_show.setText(String.valueOf(num1));
+			getNum1();
 			str_oper = "/";
-			flag = true;
 			break;
 		case R.id.btn_equal:
 			//点击等号时候就是计算的时候，那我需要知道num1,num2,str_oper，所有先判断是否存在。
@@ -166,6 +134,18 @@ public class Calculator extends Activity implements OnClickListener{
 		}
 	}
 	
+	private void getNum1() {
+		if(!(str_show.toString() == "")){
+			num1 = Double.parseDouble(str_show.toString());
+			str_show = new StringBuffer("");
+		}else if(str_result != null){
+			num1 = Double.parseDouble(str_result);
+			str_result = null;
+		}
+		et_show.setText(String.valueOf(num1));
+		flag_dot = true;
+	}
+
 	private void calculate() {
 		num2 = Double.parseDouble(str_show.toString());
 		if(str_oper.equals("+")){

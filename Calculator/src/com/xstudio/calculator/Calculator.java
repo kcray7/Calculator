@@ -88,50 +88,73 @@ public class Calculator extends Activity implements OnClickListener{
 				str_result = null;
 				str_show = new StringBuffer("");
 			}
+			num1 = 0;
 			break;
 		case R.id.btn_add:
+			if(str_oper != null){
+				calculate();
+			}
+			if(!(str_show.toString() == "")){
+				num1 = Double.parseDouble(str_show.toString());
+				str_show = new StringBuffer("");
+			}else if(str_result != null){
+				num1 = Double.parseDouble(str_result);
+				str_result = null;
+			}
+			et_show.setText(String.valueOf(num1));
 			str_oper = "+";
-			getNum1();
+			flag = true;
 			break;
 		case R.id.btn_sub:
+			if(str_oper != null){
+				calculate();
+			}
+			if(!(str_show.toString() == "")){
+				num1 = Double.parseDouble(str_show.toString());
+				str_show = new StringBuffer("");
+			}else if(str_result != null){
+				num1 = Double.parseDouble(str_result);
+				str_result = null;
+			}
+			et_show.setText(String.valueOf(num1));
 			str_oper = "-";
-			getNum1();
+			flag = true;
 			break;
 		case R.id.btn_mul:
+			if(str_oper != null){
+				calculate();
+			}
+			if(!(str_show.toString() == "")){
+				num1 = Double.parseDouble(str_show.toString());
+				str_show = new StringBuffer("");
+			}else if(str_result != null){
+				num1 = Double.parseDouble(str_result);
+				str_result = null;
+			}
+			et_show.setText(String.valueOf(num1));
 			str_oper = "*";
-			getNum1();
+			flag = true;
 			break;
 		case R.id.btn_div:
+			if(str_oper != null){
+				calculate();
+			}
+			if(!(str_show.toString() == "")){
+				num1 = Double.parseDouble(str_show.toString());
+				str_show = new StringBuffer("");
+			}else if(str_result != null){
+				num1 = Double.parseDouble(str_result);
+				str_result = null;
+			}
+			et_show.setText(String.valueOf(num1));
 			str_oper = "/";
-			getNum1();
+			flag = true;
 			break;
 		case R.id.btn_equal:
 			//点击等号时候就是计算的时候，那我需要知道num1,num2,str_oper，所有先判断是否存在。
 			if(str_oper == null) break;
 			if(str_show.toString() == "") break;
-			num2 = Double.parseDouble(str_show.toString());
-			if(str_oper.equals("+")){
-				str_result = String.valueOf(num1+num2);
-			}
-			if(str_oper.equals("-")){
-				str_result = String.valueOf(num1-num2);
-			}
-			if(str_oper.equals("*")){
-				str_result = String.valueOf(num1*num2);
-			}
-			if(str_oper.equals("/")){
-				if(num2 != 0){
-					str_result = String.valueOf(num1/num2);
-				}else{
-					Toast.makeText(Calculator.this, "除数不能为零！", Toast.LENGTH_LONG).show();
-					str_show = new StringBuffer("");
-					et_show.setText(str_show);
-					break;
-				}
-			}
-			et_show.setText(str_result);
-			str_show = new StringBuffer("");
-			
+			calculate();
 			if(str_oper!=null){
 				str_oper = null;
 			}
@@ -143,18 +166,31 @@ public class Calculator extends Activity implements OnClickListener{
 		}
 	}
 	
-	private void getNum1(){
-		if(!(str_show.toString() == "")){
-			num1 = Double.parseDouble(str_show.toString());
-			str_show = new StringBuffer("");
-		}else if(str_result != null){
-			num1 = Double.parseDouble(str_result);
-			str_result = null;
+	private void calculate() {
+		num2 = Double.parseDouble(str_show.toString());
+		if(str_oper.equals("+")){
+			str_result = String.valueOf(num1+num2);
 		}
-		et_show.setText(String.valueOf(num1));
-		flag = true;
+		if(str_oper.equals("-")){
+			str_result = String.valueOf(num1-num2);
+		}
+		if(str_oper.equals("*")){
+			str_result = String.valueOf(num1*num2);
+		}
+		if(str_oper.equals("/")){
+			if(num2 != 0){
+				str_result = String.valueOf(num1/num2);
+			}else{
+				Toast.makeText(Calculator.this, "除数不能为零！", Toast.LENGTH_LONG).show();
+				str_show = new StringBuffer("");
+				et_show.setText(str_show);
+				return;
+			}
+		}
+		et_show.setText(str_result);
+		str_show = new StringBuffer("");
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);

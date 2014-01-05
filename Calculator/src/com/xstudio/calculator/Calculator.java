@@ -46,6 +46,7 @@ public class Calculator extends Activity implements OnClickListener{
 		btn_equal = (Button)findViewById(R.id.btn_equal);
 		btn_dot = (Button)findViewById(R.id.btn_dot);
 		btn_sub = (Button)findViewById(R.id.btn_sub);
+		et_show = (EditText)findViewById(R.id.et_show);
 		btn0.setOnClickListener(this);
 		btn1.setOnClickListener(this);
 		btn2.setOnClickListener(this);
@@ -63,7 +64,6 @@ public class Calculator extends Activity implements OnClickListener{
 		btn_equal.setOnClickListener(this);
 		btn_dot.setOnClickListener(this);
 		btn_sub.setOnClickListener(this);
-		et_show = (EditText)findViewById(R.id.et_show);
 	}
 	
 	@Override
@@ -130,16 +130,15 @@ public class Calculator extends Activity implements OnClickListener{
 		if(str_oper != null){
 			calculate();
 		}
+		str_oper = oper;
 		if(!(str_show.toString() == "")){
 			num1 = Double.parseDouble(str_show.toString());
 			str_show = new StringBuffer("");
 			et_show.setText(String.valueOf(num1));
-			str_oper = oper;
 		}else if(str_result != null){
 			num1 = Double.parseDouble(str_result);
 			str_result = null;			
 			et_show.setText(String.valueOf(num1));
-			str_oper = oper;
 		}
 	}
 	

@@ -1,5 +1,7 @@
 package com.xstudio.calculator;
 
+import java.util.regex.Pattern;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -15,9 +17,9 @@ public class Calculator extends Activity implements OnClickListener{
 	private EditText et_show;
 	private StringBuffer str_show = new StringBuffer("");
 	private double num1,num2;
+	private boolean flag = true;
 	private String str_oper = null;
 	private String str_result = null;
-	private boolean flag_dot = true;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +28,6 @@ public class Calculator extends Activity implements OnClickListener{
 		initView();
 	}
 	
-	//TODO editText只能单行
 	private void initView() {
 		btn0 = (Button)findViewById(R.id.btn0);
 		btn1 = (Button)findViewById(R.id.btn1);
@@ -65,7 +66,6 @@ public class Calculator extends Activity implements OnClickListener{
 		et_show = (EditText)findViewById(R.id.et_show);
 	}
 	
-	//TODO 大数据的计算需要用到bignumber
 	@Override
 	public void onClick(View v) {
 		Button btn = (Button)v;
@@ -73,50 +73,41 @@ public class Calculator extends Activity implements OnClickListener{
 		case R.id.btn_dot:
 			if(str_show.toString() == ""){
 				break;
-			}else if(flag_dot){
+			}else if(flag){
 				str_show.append(".");
 				et_show.setText(str_show.toString());
-				flag_dot=false;
+				flag=false;
 			}
 			break;
 		case R.id.btn_clear:
 			if(!(str_show.toString() == "")){
+				if(!flag){
+					String lastStr = String.valueOf(str_show.charAt(str_show.length()-1));
+					if(lastStr.equals(".")){
+						flag = true;
+					}
+				}
 				str_show.deleteCharAt(str_show.length()-1);
 				et_show.setText(str_show.toString());
 			}else{
 				et_show.setText("");
 				str_result = null;
 				str_show = new StringBuffer("");
+				flag = true;
 			}
 			num1 = 0;
 			break;
 		case R.id.btn_add:
-			if(str_oper != null && !(str_show.toString() == "")){
-				calculate();
-			}
-			getNum1();
-			str_oper = "+";
+			getNum1(btn.getText().toString());
 			break;
 		case R.id.btn_sub:
-			if(str_oper != null && !(str_show.toString() == "")){
-				calculate();
-			}
-			getNum1();
-			str_oper = "-";
+			getNum1(btn.getText().toString());
 			break;
 		case R.id.btn_mul:
-			if(str_oper != null && !(str_show.toString() == "")){
-				calculate();
-			}
-			getNum1();
-			str_oper = "*";
+			getNum1(btn.getText().toString());
 			break;
 		case R.id.btn_div:
-			if(str_oper != null && !(str_show.toString() == "")){
-				calculate();
-			}
-			getNum1();
-			str_oper = "/";
+			getNum1(btn.getText().toString());
 			break;
 		case R.id.btn_equal:
 			//点击等号时候就是计算的时候，那我需要知道num1,num2,str_oper，所有先判断是否存在。
@@ -134,19 +125,29 @@ public class Calculator extends Activity implements OnClickListener{
 		}
 	}
 	
-	private void getNum1() {
+	private void getNum1(String oper) {
+		// TODO Auto-generated method stub
+		if(str_oper != null){
+			calculate();
+		}
 		if(!(str_show.toString() == "")){
 			num1 = Double.parseDouble(str_show.toString());
 			str_show = new StringBuffer("");
+			et_show.setText(String.valueOf(num1));
+			str_oper = oper;
 		}else if(str_result != null){
 			num1 = Double.parseDouble(str_result);
-			str_result = null;
+			str_result = null;			
+			et_show.setText(String.valueOf(num1));
+			str_oper = oper;
 		}
-		et_show.setText(String.valueOf(num1));
-		flag_dot = true;
 	}
-
+	
+	//TODO 大数据的计算需要用到bignumber
 	private void calculate() {
+		if(str_show.toString().equals("")){
+			return;
+		}
 		num2 = Double.parseDouble(str_show.toString());
 		if(str_oper.equals("+")){
 			str_result = String.valueOf(num1+num2);

@@ -12,6 +12,7 @@
         android:cursorVisible="false"
         android:editable = "false" 
         android:scrollHorizontally="true"
+        android:singleLine="true"
         android:layout_height="wrap_content" 
         android:layout_width="fill_parent" 
         >

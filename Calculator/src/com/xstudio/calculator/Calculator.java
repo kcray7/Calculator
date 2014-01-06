@@ -2,6 +2,7 @@ package com.xstudio.calculator;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -130,19 +131,19 @@ public class Calculator extends Activity implements OnClickListener{
 		str_oper = oper;
 		if(!(str_show.toString() == "")){
 			num1 = Double.parseDouble(str_show.toString());
+			et_show.setText(str_show.toString());
 			str_show = new StringBuffer("");
-			et_show.setText(String.valueOf(num1));
 			flag_num1 = true;
 		}else if(str_result != null){
 			num1 = Double.parseDouble(str_result);
+			et_show.setText(str_result);
 			str_result = null;			
-			et_show.setText(String.valueOf(num1));
 			flag_num1 = true;
 		}
 	}
 	
 	//TODO 大数据的计算需要用到bignumber
-	//TODO 计算结果如果是无理数需保留位数
+	//TODO 支持负数运算
 	private void calculate() {
 		num2 = Double.parseDouble(str_show.toString());
 		if(str_oper.equals("+")){
@@ -166,6 +167,12 @@ public class Calculator extends Activity implements OnClickListener{
 				flag_dot = true;
 				return;
 			}
+		}
+		//保留4位小数
+		String[] resultArray = str_result.split("\\.");
+		String decimals = resultArray[1];
+		if(decimals.length() > 4){
+			str_result = resultArray[0] + "." + decimals.substring(0,4);
 		}
 		et_show.setText(str_result);
 		str_show = new StringBuffer("");

@@ -4,20 +4,38 @@
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin" >
-	
-    <EditText
-	    android:id="@+id/et_show"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_gravity="right|center_vertical"
-	    android:gravity="right"
-	    android:editable="false"
-	    android:singleLine="true"
-	    android:textColor="#0000FF"
-	    android:textSize="45sp" />
-    
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" >
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" 
+        android:background="@color/show_background">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_gravity="right|center_vertical" >
+
+            <TextView
+                android:id="@+id/tv_show"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_gravity="right|center_vertical"
+                android:layout_weight="1"
+                android:background="@color/show_background"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:gravity="right|center_vertical"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="@color/show_text"
+                android:textSize="@dimen/number_view_text_size" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,7 +56,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="C"
-            android:textColor="#000FFF"
+            android:textColor="@color/button_clear"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
     </TableRow>
@@ -86,7 +104,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="+"
-            android:textColor="#FF0000"
+            android:textColor="@color/button_oper_text"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
     </TableRow>
@@ -94,7 +112,7 @@
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_weight="1" >
 
         <Button
             android:id="@+id/btn4"
@@ -133,7 +151,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="-"
-            android:textColor="#FF0000"
+            android:textColor="@color/button_oper_text"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
     </TableRow>
@@ -181,7 +199,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="*"
-            android:textColor="#FF0000"
+            android:textColor="@color/button_oper_text"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
     </TableRow>
@@ -209,7 +227,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="."
-            android:textColor="#FF0000"
+            android:textColor="@color/button_oper_text"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
 
@@ -220,8 +238,8 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="="
-            android:textColor="#FF0000"
-            android:textSize="25sp" >
+            android:textColor="@color/button_oper_text"
+            android:textSize="@dimen/number_button_text_size" >
         </Button>
 
         <Button
@@ -231,8 +249,8 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="/"
-            android:textColor="#FF0000"
-            android:textSize="25sp" >
+            android:textColor="@color/button_oper_text"
+            android:textSize="@dimen/number_button_text_size" >
         </Button>
     </TableRow>
 

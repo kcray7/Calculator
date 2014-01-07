@@ -1,33 +1,37 @@
 package com.xstudio.calculator;
 
+import java.math.BigDecimal;
+
 import android.os.Bundle;
 import android.app.Activity;
-import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * <p>Title: Calculator.java<／p>
- * <p>Description: <／p>
- * <p>Copyright: Copyright (c) 2014<／p>
+ * <p>
+ * Title: Calculator.java<／p>
+ * <p>
+ * Description: <／p>
+ * <p>
+ * Copyright: Copyright (c) 2014<／p>
+ * 
  * @author Kevin Xu
  * @date Jan 7, 2014
  * @version 1.6
  */
 public class Calculator extends Activity implements OnClickListener {
-	private EditText et_show;
+	private TextView tv_show;
 	private StringBuffer str_show = new StringBuffer("");
-	private double num1, num2;
+	private BigDecimal num1, num2;
 	private boolean flag_dot = true;
 	private boolean flag_num1 = false;
 	private String str_oper = null;
 	private String str_result = null;
+	private int scale = 4;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +40,6 @@ public class Calculator extends Activity implements OnClickListener {
 		initView();
 	}
 
-	// TODO editText显示很长一段数字时应该是先入先出的规则显示。
 	private void initView() {
 		findViewById(R.id.btn0).setOnClickListener(this);
 		findViewById(R.id.btn1).setOnClickListener(this);
@@ -55,7 +58,7 @@ public class Calculator extends Activity implements OnClickListener {
 		findViewById(R.id.btn_equal).setOnClickListener(this);
 		findViewById(R.id.btn_dot).setOnClickListener(this);
 		findViewById(R.id.btn_sub).setOnClickListener(this);
-		et_show = (EditText) findViewById(R.id.et_show);
+		tv_show = (TextView) findViewById(R.id.tv_show);
 	}
 
 	@Override
@@ -110,11 +113,11 @@ public class Calculator extends Activity implements OnClickListener {
 			calculate();
 			break;
 		default:
-			//当第一个数字是0的时候，后面输入0则重置为一个0，后面输入为数字的时候清除前面的0.
-			if(et_show.getText().toString().equals("0")){
-				if(btn.getText().toString().equals("0")){
+			// 当第一个数字是0的时候，后面输入0则重置为一个0，后面输入为数字的时候清除前面的0.
+			if (tv_show.getText().toString().equals("0")) {
+				if (btn.getText().toString().equals("0")) {
 					break;
-				}else{
+				} else {
 					str_show.deleteCharAt(0);
 				}
 			}
@@ -130,36 +133,33 @@ public class Calculator extends Activity implements OnClickListener {
 		}
 		str_oper = oper;
 		if (!(str_show.toString() == "")) {
-			num1 = Double.parseDouble(str_show.toString());
+			num1 = new BigDecimal(str_show.toString());
 			showInEditText(str_show.toString());
 			str_show = new StringBuffer("");
 			flag_num1 = true;
 		} else if (str_result != null) {
-			num1 = Double.parseDouble(str_result);
+			num1 = new BigDecimal(str_result);
 			showInEditText(str_result);
 			str_result = null;
 			flag_num1 = true;
 		}
 	}
 
-	// TODO 大数据的计算需要用到bigDecimal
 	// TODO 支持负数运算
-	// TODO issue:当一个结果是很大的数据时，保留小数后显示错误。
-	// TODO 实现四舍五入
 	private void calculate() {
-		num2 = Double.parseDouble(str_show.toString());
+		num2 = new BigDecimal(str_show.toString());
 		if (str_oper.equals("+")) {
-			str_result = String.valueOf(num1 + num2);
+			str_result = String.valueOf(Calculate.add(num1, num2));
 		}
 		if (str_oper.equals("-")) {
-			str_result = String.valueOf(num1 - num2);
+			str_result = String.valueOf(Calculate.sub(num1, num2));
 		}
 		if (str_oper.equals("*")) {
-			str_result = String.valueOf(num1 * num2);
+			str_result = String.valueOf(Calculate.mul(num1, num2));
 		}
 		if (str_oper.equals("/")) {
-			if (num2 != 0) {
-				str_result = String.valueOf(num1 / num2);
+			if (!num2.equals("0")) {
+				str_result = String.valueOf(Calculate.div(num1, num2, scale));
 			} else {
 				Toast.makeText(Calculator.this, "除数不能为零！", Toast.LENGTH_LONG)
 						.show();
@@ -171,14 +171,11 @@ public class Calculator extends Activity implements OnClickListener {
 				return;
 			}
 		}
-		// 保留4位小数，当小数只有0时去掉这个0.
+		// 当小数只有0时去掉这个0.
 		String[] resultArray = str_result.split("\\.");
 		String decimals = resultArray[1];
 		if (decimals.equals("0")) {
 			str_result = resultArray[0];
-		}
-		if (decimals.length() > 4) {
-			str_result = resultArray[0] + "." + decimals.substring(0, 4);
 		}
 		showInEditText(str_result);
 		str_show = new StringBuffer("");
@@ -187,7 +184,7 @@ public class Calculator extends Activity implements OnClickListener {
 	}
 
 	private void showInEditText(String str) {
-		et_show.setText(str);
+		tv_show.setText(str);
 	}
 
 	@Override

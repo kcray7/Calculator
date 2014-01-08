@@ -5,7 +5,7 @@
     android:versionName="1.5" >
 
     <uses-sdk
-        android:minSdkVersion="9"
+        android:minSdkVersion="14"
         android:targetSdkVersion="18" />
 
     <application
@@ -21,6 +21,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.xstudio.calculator.AboutPage"
+            android:label="@string/about">
         </activity>
     </application>
 

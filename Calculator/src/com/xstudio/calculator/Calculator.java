@@ -1,13 +1,26 @@
 package com.xstudio.calculator;
 
 import java.math.BigDecimal;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.NumberPicker;
+import android.widget.NumberPicker.OnValueChangeListener;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,13 +38,19 @@ import android.widget.Toast;
  */
 public class Calculator extends Activity implements OnClickListener {
 	private TextView tv_show;
+	private Button btn_clear;
 	private StringBuffer str_show = new StringBuffer("");
 	private BigDecimal num1, num2;
 	private boolean flag_dot = true;
 	private boolean flag_num1 = false;
 	private String str_oper = null;
 	private String str_result = null;
-	private int scale = 4;
+	private int scale = 2;
+	private boolean isScaleChanged = false;
+
+	public void setScale(int scale) {
+		this.scale = scale;
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +60,7 @@ public class Calculator extends Activity implements OnClickListener {
 	}
 
 	private void initView() {
+		tv_show = (TextView) findViewById(R.id.tv_show);
 		findViewById(R.id.btn0).setOnClickListener(this);
 		findViewById(R.id.btn1).setOnClickListener(this);
 		findViewById(R.id.btn2).setOnClickListener(this);
@@ -51,14 +71,26 @@ public class Calculator extends Activity implements OnClickListener {
 		findViewById(R.id.btn7).setOnClickListener(this);
 		findViewById(R.id.btn8).setOnClickListener(this);
 		findViewById(R.id.btn9).setOnClickListener(this);
-		findViewById(R.id.btn_clear).setOnClickListener(this);
 		findViewById(R.id.btn_div).setOnClickListener(this);
 		findViewById(R.id.btn_add).setOnClickListener(this);
 		findViewById(R.id.btn_mul).setOnClickListener(this);
 		findViewById(R.id.btn_equal).setOnClickListener(this);
 		findViewById(R.id.btn_dot).setOnClickListener(this);
 		findViewById(R.id.btn_sub).setOnClickListener(this);
-		tv_show = (TextView) findViewById(R.id.tv_show);
+		btn_clear = (Button) findViewById(R.id.btn_clear);
+		btn_clear.setOnClickListener(this);
+		btn_clear.setOnLongClickListener(new View.OnLongClickListener() {
+
+			@Override
+			public boolean onLongClick(View v) {
+				// flag_longClick = true;
+				tv_show.setText("");
+				str_show = new StringBuffer("");
+				flag_dot = true;
+				flag_num1 = false;
+				return true;
+			}
+		});
 	}
 
 	@Override
@@ -106,21 +138,11 @@ public class Calculator extends Activity implements OnClickListener {
 			setNum1(btn.getText().toString());
 			break;
 		case R.id.btn_equal:
-			if (str_oper == null)
-				break;
-			if (str_show.toString().equals(""))
+			if (str_oper == null || str_show.toString().equals("") || !flag_num1)
 				break;
 			calculate();
 			break;
 		default:
-			// 当第一个数字是0的时候，后面输入0则重置为一个0，后面输入为数字的时候清除前面的0.
-			if (tv_show.getText().toString().equals("0")) {
-				if (btn.getText().toString().equals("0")) {
-					break;
-				} else {
-					str_show.deleteCharAt(0);
-				}
-			}
 			str_show.append(btn.getText().toString());
 			showInEditText(str_show.toString());
 			break;
@@ -136,6 +158,7 @@ public class Calculator extends Activity implements OnClickListener {
 			num1 = new BigDecimal(str_show.toString());
 			showInEditText(str_show.toString());
 			str_show = new StringBuffer("");
+			str_result = null;
 			flag_num1 = true;
 		} else if (str_result != null) {
 			num1 = new BigDecimal(str_result);
@@ -143,23 +166,25 @@ public class Calculator extends Activity implements OnClickListener {
 			str_result = null;
 			flag_num1 = true;
 		}
+		flag_dot = true;
 	}
 
 	// TODO 支持负数运算
 	private void calculate() {
+		double result = 0;
 		num2 = new BigDecimal(str_show.toString());
 		if (str_oper.equals("+")) {
-			str_result = String.valueOf(Calculate.add(num1, num2));
+			result = Calculate.add(num1, num2);
 		}
 		if (str_oper.equals("-")) {
-			str_result = String.valueOf(Calculate.sub(num1, num2));
+			result = Calculate.sub(num1, num2);
 		}
 		if (str_oper.equals("*")) {
-			str_result = String.valueOf(Calculate.mul(num1, num2));
+			result = Calculate.mul(num1, num2);
 		}
 		if (str_oper.equals("/")) {
-			if (!num2.equals("0")) {
-				str_result = String.valueOf(Calculate.div(num1, num2, scale));
+			if (!num2.equals(BigDecimal.ZERO)) {
+				result = Calculate.div(num1, num2, scale);
 			} else {
 				Toast.makeText(Calculator.this, "除数不能为零！", Toast.LENGTH_LONG)
 						.show();
@@ -171,15 +196,15 @@ public class Calculator extends Activity implements OnClickListener {
 				return;
 			}
 		}
-		// 当小数只有0时去掉这个0.
-		String[] resultArray = str_result.split("\\.");
-		String decimals = resultArray[1];
-		if (decimals.equals("0")) {
-			str_result = resultArray[0];
+		str_result = String.valueOf(Calculate.round(result, scale));
+		String[] resultStrings = str_result.split("\\.");
+		if(resultStrings[1].equals("0")){
+			str_result = resultStrings[0];
 		}
 		showInEditText(str_result);
 		str_show = new StringBuffer("");
 		flag_dot = true;
+		flag_num1 = false;
 		str_oper = null;
 	}
 
@@ -189,8 +214,64 @@ public class Calculator extends Activity implements OnClickListener {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main, menu);
+		return super.onCreateOptionsMenu(menu);
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_set_precision:
+			openScaleSelectDialog();
+			return true;
+		case R.id.action_about:
+			openAboutPage();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	private void openAboutPage() {
+		Intent intent = new Intent(Calculator.this,AboutPage.class);
+		startActivity(intent);
+	}
+
+	private void openScaleSelectDialog() {
+		// TODO Auto-generated openScaleSelectDialog
+		NumberPicker precisionPicker = new NumberPicker(this);
+		precisionPicker.setMaxValue(20);
+		precisionPicker.setMinValue(1);
+		precisionPicker.setValue(scale);
+		precisionPicker.setOnValueChangedListener(new OnValueChangeListener() {
+
+			@Override
+			public void onValueChange(NumberPicker picker, int oldVal,
+					int newVal) {
+				isScaleChanged = true;
+				scale = newVal;
+			}
+		});
+		Builder alertDialog = new AlertDialog.Builder(this);
+		alertDialog.setView(precisionPicker);
+		alertDialog.setTitle(R.string.action_set_precision);
+		alertDialog.setPositiveButton(R.string.confirm,
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						if (isScaleChanged)
+							setScale(scale);
+					}
+				});
+		alertDialog.setNegativeButton(R.string.cancel,
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+					}
+				});
+		alertDialog.show();
+	}
 }

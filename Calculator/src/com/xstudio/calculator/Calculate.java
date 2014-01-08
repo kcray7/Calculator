@@ -2,6 +2,8 @@ package com.xstudio.calculator;
 
 import java.math.BigDecimal;
 
+import android.R.integer;
+
 public class Calculate {
 	private int scale = 4;
 	
@@ -23,5 +25,11 @@ public class Calculate {
 	
 	public static double div(BigDecimal num1,BigDecimal num2, int scale) {
 		return num1.divide(num2, scale, BigDecimal.ROUND_HALF_UP).doubleValue();
+	}
+	
+	public static double round(Double result, int scale) {
+		BigDecimal b = new BigDecimal(Double.toString(result));
+		BigDecimal one = new BigDecimal(1);
+		return b.divide(one, scale, BigDecimal.ROUND_HALF_UP).doubleValue();
 	}
 }

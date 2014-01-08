@@ -1,6 +1,13 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="AppTheme" parent="Theme.Base.AppCompat.Light">
-
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
     </style>
+    
+    <style name="MyActionBar" parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:background">@color/button_oper_background</item>
+        <item name="android:backgroundStacked">@color/button_oper_background</item>
+        <item name="android:backgroundSplit">@color/button_oper_background</item>
+    </style>
+    
 </resources>

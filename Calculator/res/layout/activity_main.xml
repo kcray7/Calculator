@@ -10,14 +10,14 @@
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1" 
-        android:background="@color/show_background">
+        android:layout_weight="1"
+        android:background="@color/button_number_background" >
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_gravity="right|center_vertical" >
+            android:layout_gravity="right|center_vertical"
+            android:orientation="horizontal" >
 
             <TextView
                 android:id="@+id/tv_show"
@@ -25,7 +25,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="right|center_vertical"
                 android:layout_weight="1"
-                android:background="@color/show_background"
+                android:background="@color/button_number_background"
                 android:ellipsize="marquee"
                 android:focusable="true"
                 android:gravity="right|center_vertical"
@@ -43,10 +43,39 @@
         android:baselineAligned="false" >
 
         <Button
+            android:id="@+id/btn_func"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textSize="20dp"
+            android:layout_margin="@dimen/button_separator_line_width"
+            android:layout_weight="1"
+            android:text="FUNC"
+            android:background="@color/button_oper_background"
+            android:textColor="@color/button_oper_text">
+        </Button>
+
+        <Button
+            android:id="@+id/btn_bracket_left"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/button_separator_line_width"
-            android:layout_weight="3" >
+            android:layout_weight="1"
+            android:text="("
+            android:background="@color/button_oper_background"
+            android:textColor="@color/button_oper_text"
+            android:textSize="@dimen/number_button_text_size" >
+        </Button>
+
+        <Button
+            android:id="@+id/btn_bracket_right"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/button_separator_line_width"
+            android:layout_weight="1"
+            android:text=")"
+            android:background="@color/button_oper_background"
+            android:textColor="@color/button_oper_text"
+            android:textSize="@dimen/number_button_text_size" >
         </Button>
 
         <Button
@@ -56,6 +85,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="C"
+            android:background="@color/button_oper_background"
             android:textColor="@color/button_clear"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
@@ -68,32 +98,35 @@
         android:baselineAligned="false" >
 
         <Button
-            android:id="@+id/btn1"
+            android:id="@+id/btn9"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
-            android:text="1"
+            android:text="9"
+            android:background="@color/button_number_background"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
 
         <Button
-            android:id="@+id/btn2"
+            android:id="@+id/btn8"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
-            android:text="2"
+            android:text="8"
+            android:background="@color/button_number_background"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
 
         <Button
-            android:id="@+id/btn3"
+            android:id="@+id/btn7"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
-            android:text="3"
+            android:text="7"
+            android:background="@color/button_number_background"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
 
@@ -104,6 +137,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="+"
+            android:background="@color/button_oper_background"
             android:textColor="@color/button_oper_text"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
@@ -115,12 +149,13 @@
         android:layout_weight="1" >
 
         <Button
-            android:id="@+id/btn4"
+            android:id="@+id/btn6"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
-            android:text="4"
+            android:text="6"
+            android:background="@color/button_number_background"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
 
@@ -131,16 +166,18 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="5"
+            android:background="@color/button_number_background"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
 
         <Button
-            android:id="@+id/btn6"
+            android:id="@+id/btn4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
-            android:text="6"
+            android:text="4"
+            android:background="@color/button_number_background"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
 
@@ -151,6 +188,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="-"
+            android:background="@color/button_oper_background"
             android:textColor="@color/button_oper_text"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
@@ -163,32 +201,35 @@
         android:baselineAligned="false" >
 
         <Button
-            android:id="@+id/btn7"
+            android:id="@+id/btn3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
-            android:text="7"
+            android:text="3"
+            android:background="@color/button_number_background"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
 
         <Button
-            android:id="@+id/btn8"
+            android:id="@+id/btn2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
-            android:text="8"
+            android:text="2"
+            android:background="@color/button_number_background"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
 
         <Button
-            android:id="@+id/btn9"
+            android:id="@+id/btn1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
-            android:text="9"
+            android:text="1"
+            android:background="@color/button_number_background"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
 
@@ -199,6 +240,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="*"
+            android:background="@color/button_oper_background"
             android:textColor="@color/button_oper_text"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
@@ -211,23 +253,24 @@
         android:baselineAligned="false" >
 
         <Button
-            android:id="@+id/btn0"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/button_separator_line_width"
-            android:layout_weight="1"
-            android:text="0"
-            android:textSize="@dimen/number_button_text_size" >
-        </Button>
-
-        <Button
             android:id="@+id/btn_dot"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="."
-            android:textColor="@color/button_oper_text"
+            android:background="@color/button_number_background"
+            android:textSize="@dimen/number_button_text_size" >
+        </Button>
+
+        <Button
+            android:id="@+id/btn0"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/button_separator_line_width"
+            android:layout_weight="1"
+            android:text="0"
+            android:background="@color/button_number_background"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
 
@@ -238,6 +281,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="="
+            android:background="@color/button_oper_background"
             android:textColor="@color/button_oper_text"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
@@ -249,6 +293,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="/"
+            android:background="@color/button_oper_background"
             android:textColor="@color/button_oper_text"
             android:textSize="@dimen/number_button_text_size" >
         </Button>

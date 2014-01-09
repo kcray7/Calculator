@@ -50,7 +50,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="FUNC"
-            android:background="@color/button_oper_background"
+            android:background="@drawable/oper_button_press_selector"
             android:textColor="@color/button_oper_text">
         </Button>
 
@@ -61,7 +61,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="("
-            android:background="@color/button_oper_background"
+            android:background="@drawable/oper_button_press_selector"
             android:textColor="@color/button_oper_text"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
@@ -73,7 +73,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text=")"
-            android:background="@color/button_oper_background"
+            android:background="@drawable/oper_button_press_selector"
             android:textColor="@color/button_oper_text"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
@@ -85,7 +85,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="C"
-            android:background="@color/button_oper_background"
+            android:background="@drawable/oper_button_press_selector"
             android:textColor="@color/button_clear"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
@@ -104,7 +104,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="9"
-            android:background="@color/button_number_background"
+            android:background="@drawable/number_button_press_selector"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
 
@@ -115,7 +115,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="8"
-            android:background="@color/button_number_background"
+            android:background="@drawable/number_button_press_selector"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
 
@@ -126,7 +126,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="7"
-            android:background="@color/button_number_background"
+            android:background="@drawable/number_button_press_selector"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
 
@@ -137,7 +137,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="+"
-            android:background="@color/button_oper_background"
+            android:background="@drawable/oper_button_press_selector"
             android:textColor="@color/button_oper_text"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
@@ -155,7 +155,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="6"
-            android:background="@color/button_number_background"
+            android:background="@drawable/number_button_press_selector"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
 
@@ -166,7 +166,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="5"
-            android:background="@color/button_number_background"
+            android:background="@drawable/number_button_press_selector"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
 
@@ -177,7 +177,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="4"
-            android:background="@color/button_number_background"
+            android:background="@drawable/number_button_press_selector"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
 
@@ -188,7 +188,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="-"
-            android:background="@color/button_oper_background"
+            android:background="@drawable/oper_button_press_selector"
             android:textColor="@color/button_oper_text"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
@@ -207,7 +207,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="3"
-            android:background="@color/button_number_background"
+            android:background="@drawable/number_button_press_selector"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
 
@@ -218,7 +218,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="2"
-            android:background="@color/button_number_background"
+            android:background="@drawable/number_button_press_selector"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
 
@@ -229,7 +229,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="1"
-            android:background="@color/button_number_background"
+            android:background="@drawable/number_button_press_selector"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
 
@@ -240,7 +240,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="*"
-            android:background="@color/button_oper_background"
+            android:background="@drawable/oper_button_press_selector"
             android:textColor="@color/button_oper_text"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
@@ -253,13 +253,13 @@
         android:baselineAligned="false" >
 
         <Button
-            android:id="@+id/btn_dot"
+            android:id="@+id/btn_point"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="."
-            android:background="@color/button_number_background"
+            android:background="@drawable/number_button_press_selector"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
 
@@ -270,7 +270,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="0"
-            android:background="@color/button_number_background"
+            android:background="@drawable/number_button_press_selector"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
 
@@ -281,7 +281,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="="
-            android:background="@color/button_oper_background"
+            android:background="@drawable/oper_button_press_selector"
             android:textColor="@color/button_oper_text"
             android:textSize="@dimen/number_button_text_size" >
         </Button>
@@ -293,7 +293,7 @@
             android:layout_margin="@dimen/button_separator_line_width"
             android:layout_weight="1"
             android:text="/"
-            android:background="@color/button_oper_background"
+            android:background="@drawable/oper_button_press_selector"
             android:textColor="@color/button_oper_text"
             android:textSize="@dimen/number_button_text_size" >
         </Button>

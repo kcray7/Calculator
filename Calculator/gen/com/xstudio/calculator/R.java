@@ -999,6 +999,8 @@ containing a value of this type.
         public static final int abc_textfield_searchview_right_holo_light=0x7f020056;
         public static final int about_page=0x7f020057;
         public static final int ic_calculator=0x7f020058;
+        public static final int number_button_press_selector=0x7f020059;
+        public static final int oper_button_press_selector=0x7f02005a;
     }
     public static final class id {
         public static final int action_about=0x7f050052;
@@ -1032,10 +1034,10 @@ containing a value of this type.
         public static final int btn_bracket_right=0x7f05003f;
         public static final int btn_clear=0x7f050040;
         public static final int btn_div=0x7f050050;
-        public static final int btn_dot=0x7f05004d;
         public static final int btn_equal=0x7f05004f;
         public static final int btn_func=0x7f05003d;
         public static final int btn_mul=0x7f05004c;
+        public static final int btn_point=0x7f05004d;
         public static final int btn_sub=0x7f050048;
         public static final int checkbox=0x7f05002d;
         public static final int collapseActionView=0x7f05000d;

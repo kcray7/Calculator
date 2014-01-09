@@ -7,6 +7,7 @@ import java.util.TimerTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.R.string;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -47,6 +48,7 @@ public class Calculator extends Activity implements OnClickListener {
 	private String str_result = null;
 	private int scale = 2;
 	private boolean isScaleChanged = false;
+	private boolean flag_minus = false;
 
 	public void setScale(int scale) {
 		this.scale = scale;
@@ -75,7 +77,7 @@ public class Calculator extends Activity implements OnClickListener {
 		findViewById(R.id.btn_add).setOnClickListener(this);
 		findViewById(R.id.btn_mul).setOnClickListener(this);
 		findViewById(R.id.btn_equal).setOnClickListener(this);
-		findViewById(R.id.btn_dot).setOnClickListener(this);
+		findViewById(R.id.btn_point).setOnClickListener(this);
 		findViewById(R.id.btn_sub).setOnClickListener(this);
 		btn_clear = (Button) findViewById(R.id.btn_clear);
 		btn_clear.setOnClickListener(this);
@@ -88,6 +90,8 @@ public class Calculator extends Activity implements OnClickListener {
 				str_show = new StringBuffer("");
 				flag_dot = true;
 				flag_num1 = false;
+				flag_minus = false;
+				str_oper = null;
 				return true;
 			}
 		});
@@ -97,12 +101,12 @@ public class Calculator extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		Button btn = (Button) v;
 		switch (v.getId()) {
-		case R.id.btn_dot:
+		case R.id.btn_point:
 			if (str_show.toString() == "") {
 				break;
 			} else if (flag_dot) {
 				str_show.append(".");
-				showInEditText(str_show.toString());
+				showInTextView(str_show.toString());
 				flag_dot = false;
 			}
 			break;
@@ -116,12 +120,16 @@ public class Calculator extends Activity implements OnClickListener {
 					}
 				}
 				str_show.deleteCharAt(str_show.length() - 1);
-				showInEditText(str_show.toString());
+				if(str_show.toString().equals("")){
+					flag_minus = false;
+				}
+				showInTextView(str_show.toString());
 			} else {
-				showInEditText("");
+				showInTextView("");
 				str_result = null;
 				str_show = new StringBuffer("");
 				flag_dot = true;
+				flag_minus = false;
 			}
 			flag_num1 = false;
 			break;
@@ -129,6 +137,14 @@ public class Calculator extends Activity implements OnClickListener {
 			setNum1(btn.getText().toString());
 			break;
 		case R.id.btn_sub:
+			if (!flag_minus) {
+				if (str_show.toString().equals("")) {
+					str_show.append("-");
+					showInTextView(str_show.toString());
+					flag_minus = true;
+					break;
+				}
+			}
 			setNum1(btn.getText().toString());
 			break;
 		case R.id.btn_mul:
@@ -138,13 +154,14 @@ public class Calculator extends Activity implements OnClickListener {
 			setNum1(btn.getText().toString());
 			break;
 		case R.id.btn_equal:
-			if (str_oper == null || str_show.toString().equals("") || !flag_num1)
+			if (str_oper == null || str_show.toString().equals("")
+					|| !flag_num1)
 				break;
 			calculate();
 			break;
 		default:
 			str_show.append(btn.getText().toString());
-			showInEditText(str_show.toString());
+			showInTextView(str_show.toString());
 			break;
 		}
 	}
@@ -154,22 +171,23 @@ public class Calculator extends Activity implements OnClickListener {
 			calculate();
 		}
 		str_oper = oper;
-		if (!(str_show.toString() == "")) {
+		if (!(str_show.toString() == "") && !str_show.toString().equals("-")) {
 			num1 = new BigDecimal(str_show.toString());
-			showInEditText(str_show.toString());
+			showInTextView(str_show.toString());
 			str_show = new StringBuffer("");
 			str_result = null;
 			flag_num1 = true;
+			flag_minus = false;
 		} else if (str_result != null) {
 			num1 = new BigDecimal(str_result);
-			showInEditText(str_result);
+			showInTextView(str_result);
 			str_result = null;
 			flag_num1 = true;
+			flag_minus = false;
 		}
 		flag_dot = true;
 	}
 
-	// TODO 支持负数运算
 	private void calculate() {
 		double result = 0;
 		num2 = new BigDecimal(str_show.toString());
@@ -188,8 +206,8 @@ public class Calculator extends Activity implements OnClickListener {
 			} else {
 				Toast.makeText(Calculator.this, "除数不能为零！", Toast.LENGTH_LONG)
 						.show();
+				showInTextView("");
 				str_show = new StringBuffer("");
-				showInEditText(str_show.toString());
 				str_oper = null;
 				flag_num1 = false;
 				flag_dot = true;
@@ -198,17 +216,18 @@ public class Calculator extends Activity implements OnClickListener {
 		}
 		str_result = String.valueOf(Calculate.round(result, scale));
 		String[] resultStrings = str_result.split("\\.");
-		if(resultStrings[1].equals("0")){
+		if (resultStrings[1].equals("0")) {
 			str_result = resultStrings[0];
 		}
-		showInEditText(str_result);
+		showInTextView(str_result);
 		str_show = new StringBuffer("");
 		flag_dot = true;
 		flag_num1 = false;
 		str_oper = null;
+		flag_minus = true;
 	}
 
-	private void showInEditText(String str) {
+	private void showInTextView(String str) {
 		tv_show.setText(str);
 	}
 
@@ -234,12 +253,11 @@ public class Calculator extends Activity implements OnClickListener {
 	}
 
 	private void openAboutPage() {
-		Intent intent = new Intent(Calculator.this,AboutPage.class);
+		Intent intent = new Intent(Calculator.this, AboutPage.class);
 		startActivity(intent);
 	}
 
 	private void openScaleSelectDialog() {
-		// TODO Auto-generated openScaleSelectDialog
 		NumberPicker precisionPicker = new NumberPicker(this);
 		precisionPicker.setMaxValue(20);
 		precisionPicker.setMinValue(1);
@@ -274,4 +292,5 @@ public class Calculator extends Activity implements OnClickListener {
 				});
 		alertDialog.show();
 	}
+
 }

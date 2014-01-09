@@ -7,5 +7,6 @@
     <string name="confirm">OK</string>
     <string name="cancel">Cancel</string>
     <string name="about">About Calculator</string>
+    <string name="error">The divisor can not be zero!</string>
 
 </resources>

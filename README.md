@@ -12,3 +12,4 @@ Feature
 ----------
 1. Simple calculate between two numbers
 2. Continue calculate between serveral numbers
+3. Set precision of calculate result

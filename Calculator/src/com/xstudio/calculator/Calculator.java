@@ -189,6 +189,7 @@ public class Calculator extends Activity implements OnClickListener {
 	}
 
 	private void calculate() {
+		if(str_show.toString().equals("-")) return;
 		double result = 0;
 		num2 = new BigDecimal(str_show.toString());
 		if (str_oper.equals("+")) {

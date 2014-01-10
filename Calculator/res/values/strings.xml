@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Calculator</string>
+    <string name="app_name">Simple Calculator</string>
     <string name="action_set_precision">Precision Setting</string>
     <string name="action_about">About Calculator</string>
     <string name="confirm">OK</string>

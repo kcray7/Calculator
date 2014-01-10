@@ -43,39 +43,12 @@
         android:baselineAligned="false" >
 
         <Button
-            android:id="@+id/btn_func"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:textSize="20dp"
             android:layout_margin="@dimen/button_separator_line_width"
-            android:layout_weight="1"
-            android:text="FUNC"
-            android:background="@drawable/oper_button_press_selector"
+            android:layout_weight="3"
+            android:background="@color/button_oper_background"
             android:textColor="@color/button_oper_text">
-        </Button>
-
-        <Button
-            android:id="@+id/btn_bracket_left"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/button_separator_line_width"
-            android:layout_weight="1"
-            android:text="("
-            android:background="@drawable/oper_button_press_selector"
-            android:textColor="@color/button_oper_text"
-            android:textSize="@dimen/number_button_text_size" >
-        </Button>
-
-        <Button
-            android:id="@+id/btn_bracket_right"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/button_separator_line_width"
-            android:layout_weight="1"
-            android:text=")"
-            android:background="@drawable/oper_button_press_selector"
-            android:textColor="@color/button_oper_text"
-            android:textSize="@dimen/number_button_text_size" >
         </Button>
 
         <Button

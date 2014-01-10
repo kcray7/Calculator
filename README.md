@@ -6,7 +6,7 @@ An simple Calculator app
 UI
 ----------
 This is my app's UI: 
-![image](https://github.com/kevinxuv/Calculator/tree/master/Calculator/UI.png)
+![image](http://github.com/kevinxuv/Calculator/raw/master/UI.png)
 
 Feature
 ----------

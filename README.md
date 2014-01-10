@@ -1,7 +1,7 @@
 Calculator
 ==========
 
-An simple Calculator app
+A simple Calculator app
 
 UI
 ----------
